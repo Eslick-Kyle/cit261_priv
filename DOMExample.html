@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Kyle Eslick's Store</title>
+		<script>
+			function validate() 
+			{
+				var submit = true;
+				if (!experationValidation())
+				{
+					document.forms.form.experation.focus();
+					submit = false;
+				}
+				if (!cardNumberValidation())
+				{
+					document.forms.form.cardNumber.focus();
+					submit = false;
+				}
+				if (!phoneValidation()) 
+				{
+					document.forms.form.phone.focus();
+					submit = false;
+				}
+				if (!buyingValidate())
+				{
+					submit = false;
+				}
+				if (!cardTypeValidation()) 
+				{
+					submit = false;
+				}
+				if (!addressValidate())
+				{
+					document.forms.form.address.focus();
+					submit = false;
+				}
+				if (!lastnameValidate())
+				{
+					document.forms.form.lastname.focus();
+					submit = false;
+				}
+				if (!firstnameValidate())
+				{
+					document.forms.form.firstname.focus();
+					submit = false;
+				}
+				return submit;
+			}
+			function calcTotal() {
+				var total = 0;
+				for (var i = 0; i < document.forms.form.shop.length; i++)
+				{
+					if (document.forms.form.shop[i].checked)
+					{
+						total += parseInt(document.getElementById("shopTable").rows[i+1].cells[1].innerHTML);
+					}
+				}
+				document.getElementById("total").innerHTML = "<b>$" + total + "</b>";
+				buyingValidate();
+			}
+			function firstnameValidate()
+			{
+				if (document.forms.form.firstname.value != "")
+				{
+					document.getElementById("firstnameError").innerHTML = "";
+					return true;
+				}
+				else
+				{
+					document.getElementById("firstnameError").innerHTML = "First name is required";
+					return false;
+				}
+			}
+			function lastnameValidate()
+			{
+				if (document.forms.form.lastname.value != "")
+				{
+					document.getElementById("lastnameError").innerHTML = "";
+					return true;
+				}
+				else
+				{
+					document.getElementById("lastnameError").innerHTML = "Last name is required";
+					return false;
+				}
+			}
+			function addressValidate()
+			{
+				if (document.forms.form.address.value != "")
+				{
+					document.getElementById("addressError").innerHTML = "";
+					return true;
+				}
+				else
+				{
+					document.getElementById("addressError").innerHTML = "Address is required";
+					return false;
+				}
+			}
+			function phoneValidation() 
+			{
+				var patt = new RegExp("^[0-9]{3}-[0-9]{3}-[0-9]{4}$");
+				if (patt.test(document.forms.form.phone.value))
+				{
+					document.getElementById("phoneError").innerHTML = "";
+					return true;
+				}
+				else
+				{
+					document.getElementById("phoneError").innerHTML = "Phone number must be in XXX-XXX-XXXX format";
+					return false;
+				}
+			}
+			function buyingValidate() 
+			{
+				var ready = false;
+				for (var i = 0; i < document.forms.form.shop.length; i++)
+				{
+					if (document.forms.form.shop[i].checked)
+					{
+						ready = true;
+						break;
+					}
+				}
+				if (ready)
+				{
+					document.getElementById("buyingError").innerHTML = "";
+				}
+				else
+				{
+					document.getElementById("buyingError").innerHTML = "You must select something to buy";
+				}
+				return ready;
+			}
+			function cardTypeValidation()
+			{
+				var ready = false;
+				for (var i = 0; i < document.forms.form.cardtype.length; i++)
+				{
+					if (document.forms.form.cardtype[i].checked)
+					{
+						ready = true;
+						break;
+					}
+				}
+				if (ready)
+				{
+					document.getElementById("cardTypeError").innerHTML = "";
+				}
+				else
+				{
+					document.getElementById("cardTypeError").innerHTML = "Must select a card type";
+				}
+				return ready;
+			}
+			function cardNumberValidation() 
+			{
+				var patt = new RegExp("^[0-9]{16}$");
+				if (patt.test(document.getElementById("cardNumber").value))
+				{
+					document.getElementById("cardNumberError").innerHTML = "";
+					return true;
+				}
+				else
+				{
+					document.getElementById("cardNumberError").innerHTML = "Credit card number must be 16 digits";
+					return false;
+				}
+			}
+			function experationValidation() 
+			{
+				var patt = new RegExp("^(0?[1-9]|1[012])/20(1[2-9]{1}$|[2-9]{1}[0-9]{1}$)");
+				if (patt.test(document.getElementById("experation").value))
+				{
+					document.getElementById("experationError").innerHTML = "";
+					return true;
+				}
+				else
+				{
+					document.getElementById("experationError").innerHTML = "Experation date must be in mm/yyyy format";
+					return false;
+				}
+			}
+			function focusIt() 
+			{
+				document.getElementById("firstname").focus();
+			}
+			document.onload = focusIt();
+		</script>
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<div id="content">
+			<form id="form" action="assign10.php" onsubmit="return validate();" onreset="focusIt()" method="post">
+				First name:
+				<br/>
+				<input type="text" name="firstname" id="firstname" onBlur="firstnameValidate()"><span id="firstnameError"></span>
+				<br/>
+				Last name:
+				<br/>
+				<input type="text" name="lastname" id="lastname" onChange="lastnameValidate()"><span id="lastnameError"></span>
+				<br/>
+				Address
+				<br/>
+				<textarea rows="4" cols="50" onChange="addressValidate()" placeholder="Street Address, City, State Zip"  name="address" id="address"></textarea><span id="addressError"></span>
+				<br/>
+				Phone:
+				<br/>
+				<input type="text" onChange="phoneValidation()" name="phone" id="phone" placeholder="XXX-XXX-XXXX"><span id="phoneError"></span>
+				<br/><br/>
+				<table id="shopTable">
+					<tr>
+						<th>
+							Item
+						</th>
+						<th>
+							Cost
+						</th>
+						<th></th>
+					</tr>
+					<tr>
+						<td>
+							Tent
+						</td>
+						<td>
+							300
+						</td>
+						<td>
+							<input type="checkbox" name="shop[]" id="shop" value="Tent" onclick="calcTotal()">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Spork
+						</td>
+						<td>
+							12
+						</td>
+						<td>
+							<input type="checkbox" name="shop[]" id="shop" value="Spork" onclick="calcTotal()">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Lighter
+						</td>
+						<td>
+							15
+						</td>
+						<td>
+							<input type="checkbox" name="shop[]" id="shop" value="Lighter" onclick="calcTotal()">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Sleeping Bag
+						</td>
+						<td>
+							150
+						</td>
+						<td>
+							<input type="checkbox" name="shop[]" id="shop" value="Sleeping Bag" onclick="calcTotal()">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Total:
+						</td>
+						<td></td>
+						<td id="total">
+							<b>$0<b>
+							</td>
+						</tr>
+					</table>
+					<div id="buyingError" class="error"></div>
+					<br/>
+					Card Type:
+					<br/>
+					<input type="radio" name="cardtype" value="Visa" onChange="cardTypeValidation()">Visa
+					<input type="radio" name="cardtype" value="Mastercard" onChange="cardTypeValidation()">Mastercard
+					<input type="radio" name="cardtype" value="American Express" onChange="cardTypeValidation()">American Express<span id="cardTypeError"></span>
+					<br/>
+					Card #:
+					<br/>
+					<input type="text" name="cardNumber" id="cardNumber" onChange="cardNumberValidation()"><span id="cardNumberError"></span>
+					<br/>
+					Card Experation Date:
+					<br/>
+					<input type="text" placeholder="mm/yyyy" name="experation" id="experation" onChange="experationValidation()"><span id="experationError"></span>
+					<br/>
+					<input type="submit" value="Submit">
+					<input type="reset" value="Reset!" onClick="focusIt()">
+					<br/>
+				</form>
+
+			</div> <!-- content -->
+
+		</div> <!-- #wrapper -->
+	</body>
+	</html>
