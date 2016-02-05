@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<script>
+function openDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<title>Portfolio</title>
+
+</head>
+<body>
+
+<div class="nav">
+    <h2>Kyle Eslick Portfolio</h2>
+    <div class="dropdown" onclick="openDropdown()">
+    <div class="dropbtn"><hr><br><hr><br><hr><br></div>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="JavaScript.html">JavaScript Objects</a>
+        <a href="DOM.html">DOM Manipulation</a>
+        <a href="cssTransition.html">CSS3 Transitions</a>
+        <a href="cssAnimation.html">CSS3 Animations</a>
+        <a href="localStorage.html">Local Storage</a>
+        <a href="ajax.html">AJAX</a>
+        <a href="json.html">JSON</a>
+      </div>
+    </div>
+</div>
+
+<div class="content tinted">
+<h1>Welcome to my portfolio!</h1>
+<h3>Now with 100% less Bootstrap!</h3>
+<h3>Please go to a coding topic to see more</h3>
+<p>1. JavaScript objects (Not Ready Yet)</p>
+<p>2. DOM manipulation (Not Ready Yet)</p>
+<p>3. CSS3 transformations (Not Ready Yet)</p>
+<p>4. CSS3 animations (Not Ready Yet)</p>
+<p>5. Using local data storage <b>Ready</b></p>
+<p>6. AJAX (Not Ready Yet)</p>
+<p>8. JSON data serialization (Not Ready Yet)</p>
+<p></p>
+</div>
+
+</body>
+</html>

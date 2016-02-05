@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<script>
+
+//code for the navbar
+function openDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<title>Portfolio</title>
+
+</head>
+<body>
+
+<div class="nav">
+    <h2>Kyle Eslick Portfolio: Local Storage</h2>
+    <div class="dropdown" onclick="openDropdown()">
+    <div class="dropbtn"><hr><br><hr><br><hr><br></div>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="JavaScript.html">JavaScript Objects</a>
+        <a href="DOM.html">DOM Manipulation</a>
+        <a href="cssTransition.html">CSS3 Transitions</a>
+        <a href="cssAnimation.html">CSS3 Animations</a>
+        <a href="localStorage.html" class="active">Local Storage</a>
+        <a href="ajax.html">AJAX</a>
+        <a href="json.html">JSON</a>
+      </div>
+    </div>
+</div>
+
+<div class="content tinted">
+<h1>Local Storage</h1>
+<p>Enter the information below to test local storage.</p>
+<!-- tests a single storage entry -->
+Name: <input type="text" name="name" id="name"><br/>
+<!-- tests an array -->
+Favorite animals: <br/>
+<input type="checkbox" name="animals" id="animals" value="Cats">Cat<br/>
+<input type="checkbox" name="animals" id="animals" value="Dogs">Dog<br/>
+<input type="checkbox" name="animals" id="animals" value="Dolphins">Dolphin<br/>
+<input type="checkbox" name="animals" id="animals" value="Others">Other<br/>
+<input type="button" onclick="store()" value="Save"> 
+<input type="button" onclick="clearS()" value="Clear Local Storage">
+
+<div id="results">
+</div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+  //---------------------------------------------------------
+// look here for grading
+//---------------------------------------------------------
+
+function store() {
+  var name = document.getElementById("name").value;
+  var arr = document.getElementsByName("animals");
+  var animals = new Array;
+
+  if (name == "")
+    localStorage.removeItem("name");
+  else
+    localStorage.setItem("name", name);
+
+  var length = arr.length;
+
+  localStorage.removeItem("animals");
+  for (var i = 0; i < length; i++) 
+  {
+    if(arr[i].checked)
+    {
+      animals.push(arr[i].value);
+    }
+  }
+  localStorage.setItem("animals", JSON.stringify(animals));
+  read();
+}
+
+function clearS() {
+  localStorage.removeItem("name");
+  localStorage.removeItem("animals");
+  read();
+}
+
+function read() {
+  var output = "";
+  if (localStorage.getItem("name"))
+  {
+    output += "Your name is: " + localStorage.getItem("name") + "<br/>";
+  }
+  if (localStorage.getItem("animals")) 
+  {
+    var animals = JSON.parse(localStorage.getItem("animals"));
+    if (animals.length > 1) 
+    {
+      output += "You liked the following animals:<br/>";
+    }
+    else if (animals.length == 1)
+    {
+      output += "You only liked: ";
+    }
+
+    for (var i = 0; i < animals.length; i++) 
+    {
+      output += animals[i] + "<br/>";
+    }
+  }
+  document.getElementById("results").innerHTML = output;
+}
+
+window.onload = function(){
+  read()
+};
+</script>
+</html>

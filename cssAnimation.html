@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/css.css">
+<script>
+function openDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<title>Portfolio</title>
+
+</head>
+<body>
+
+<div class="nav">
+    <h2>Kyle Eslick Portfolio: CSS3 Animations</h2>
+    <div class="dropdown" onclick="openDropdown()">
+    <div class="dropbtn"><hr><br><hr><br><hr><br></div>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="JavaScript.html">JavaScript Objects</a>
+        <a href="DOM.html">DOM Manipulation</a>
+        <a href="cssTransition.html">CSS3 Transitions</a>
+        <a href="cssAnimation.html" class="active">CSS3 Animations</a>
+        <a href="localStorage.html">Local Storage</a>
+        <a href="ajax.html">AJAX</a>
+        <a href="json.html">JSON</a>
+      </div>
+    </div>
+</div>
+
+<div class="content tinted">
+<h1>CSS3 Animations</h1>
+<p>Here we have a moving box</p>
+<div id="animate"></div>
+<p>And a spinner (Loading spinner)</p>
+<div class="spinner"></div>
+<p>Example that you have to click to get to work:</p>
+<div class="" id="click" onclick="animate()"></div>
+</div>
+
+</body>
+<script type="text/javascript">
+  var element = document.getElementById('click');
+  var trigger = document.getElementById('click'); // or whatever triggers the toggle
+
+trigger.addEventListener('click', function(e) {
+    e.preventDefault();
+    element.classList.toggle('click'); // or whatever your active class is
+});
+
+</script>
+</html>
